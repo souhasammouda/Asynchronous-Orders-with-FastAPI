@@ -1,0 +1,179 @@
+{
+	"info": {
+		"_postman_id": "2f679369-c71a-4df1-8ea6-fa8fb57a1fef",
+		"name": "orders",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33183563"
+	},
+	"item": [
+		{
+			"name": "Get All Orders",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Create Order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \n    \"customer_id\": 111,\n    \"product_id\": 22,\n    \"quantity\": 30,\n    \"price_net\": 10\n}\n\n// Send order details to order service\n// order service will write the details to orders database.\n// create_order will send order details to send_event to check the orders detail\n// send_event in the product service will send a rabbit mq event in order to update \n// the status in the order database.",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8004/api/v1/orders",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8004",
+					"path": [
+						"api",
+						"v1",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_devis (deprecated))",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8004/api/v1/orders/get_devis",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8004",
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"get_devis"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get order",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8004/api/v1/orders/1/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8004",
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "validate Devis",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"order_id\": 1,\n    \"isValid\": true\n}\n// change the status of the devis in the product service\n// either accepted or refused.",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8004/api/v1/orders/validate_devis",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8004",
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"validate_devis"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sent event devis",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1\n}\n// Once the status in the orders database is accepted\n// this route will send an event to get_devis in the product service.\n// the devis will be generated.\n// the devis is sent to the client \n// the devis status is marked as waiting approval",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8004/api/v1/orders/send_event_devis",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8004",
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"send_event_devis"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

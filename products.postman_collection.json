@@ -1,0 +1,255 @@
+{
+	"info": {
+		"_postman_id": "e1bcde06-32ce-4afd-b850-49ef0aff0933",
+		"name": "products",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33183563"
+	},
+	"item": [
+		{
+			"name": "Get All Products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8002/api/v1/products",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8002",
+					"path": [
+						"api",
+						"v1",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \n    \"name\": \"iphone\",\n    \"price_net\": 20,\n    \"quantity\": 200,\n    \"status\": \"Active\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8002/api/v1/products",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8002",
+					"path": [
+						"api",
+						"v1",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Product availability",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"order_id\": 1,\n    \"product_id\": 1,\n    \"quantity\": 10\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8002/api/v1/products/check_availability",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8002",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"check_availability"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "send event (create Order call))",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"order_id\": 1,\n    \"product_id\": 1,\n    \"quantity\": 10\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8002/api/v1/products/send_event",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8002",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"send_event"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_devis (PDF)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customer_id\": 111,\n    \"product_id\": 1000,\n    \"quantity\": 20,\n    \"price_net\": 10,\n    \"status\": \"pending\",\n    \"order_id\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8002/api/v1/products/get_devis",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8002",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"get_devis"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get devis details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8002/api/v1/products/get_devis/1/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8002",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"get_devis",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All devis",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8002/api/v1/products/get_all_devis",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8002",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"get_all_devis"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "validate devis listner",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"order_id\": 1,\n    \"isValid\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8002/api/v1/products/validate_devis_listener",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8002",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"validate_devis_listener"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

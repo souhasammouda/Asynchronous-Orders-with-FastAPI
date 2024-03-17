@@ -1,0 +1,83 @@
+version: '3.7'
+
+services:
+  product_service:
+    build: ./product-service
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4 --log-level 'info'
+    volumes:
+      - ./product-service/:/app/
+    ports:
+      - 8002:8000
+    environment:
+      - DATABASE_URI=postgresql://product_db_username:product_db_password@product_db/product_db_dev
+    networks:
+      - mynet
+
+  product_db:
+    image: postgres:latest
+    volumes:
+      - postgres_data_product:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=product_db_username
+      - POSTGRES_PASSWORD=product_db_password
+      - POSTGRES_DB=product_db_dev
+    logging:
+        driver: none
+    networks:
+      - mynet
+
+  order_service:
+    build: ./order-service
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4 --log-level 'info'
+    volumes:
+      - ./order-service/:/app/
+    ports:
+      - 8004:8000
+    environment:
+      - DATABASE_URI=postgresql://order_db_username:order_db_password@order_db/order_db_dev
+    networks:
+      - mynet
+
+  order_db:
+    image: postgres:latest
+    volumes:
+      - postgres_data_order:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=order_db_username
+      - POSTGRES_PASSWORD=order_db_password
+      - POSTGRES_DB=order_db_dev
+    ports:
+      - 5432:5432
+    networks:
+      - mynet
+
+  rabbitmq:
+    image: rabbitmq:3.7.15-management-alpine
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=food
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - mynet
+
+  consumer:
+    build: ./consumer
+    command: python3 ./app/consumer.py
+    volumes:
+      - ./consumer/:/app/
+    networks:
+      - mynet
+    depends_on:
+      - rabbitmq
+      - order_db
+
+networks:
+  mynet:
+    driver: bridge
+
+volumes:
+  postgres_data_customer:
+  postgres_data_product:
+  postgres_data_order:

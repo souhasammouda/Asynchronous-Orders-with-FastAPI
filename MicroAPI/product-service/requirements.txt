@@ -1,0 +1,15 @@
+anyio==3.5.0
+asgiref==3.5.0
+asyncpg
+click==8.1.2
+databases==0.5.5
+fastapi==0.75.2
+greenlet
+h11==0.13.0
+idna==3.3
+psycopg2-binary
+sniffio==1.2.0
+SQLAlchemy==1.4.36
+uvicorn==0.17.6
+pika
+fpdf
